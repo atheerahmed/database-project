@@ -1,0 +1,104 @@
+
+
+/*CREATE DATABASE store */
+create database store;
+
+/*CREATE TABLE countries */
+use store;
+create table countries(
+cod int primary key,
+name varchar(20) unique,
+countries varchar(20) not null
+);
+
+/*CREATE TABLE users */
+use store;
+create table users(
+id int primary key,
+full_name varchar(20),
+email varchar(20) unique,
+gender char(1),
+date_of_brith varchar(15),
+crated_at datetime,
+country_code int,
+check(gender in ('m', 'f')),
+FOREIGN  KEY (country_code) REFERENCES countries(cod));
+
+/*CREATE TABLE order */
+use store;
+create table orders(
+id int primary key,
+user_id int,
+status varchar(6) ,
+crated_at datetime,
+check(status in ('start', 'finish')),
+FOREIGN  KEY (user_id) REFERENCES user(id));
+
+/*CREATE TABLE products */
+use store;
+create table products(
+id int primary key,
+name varchar(10) not null,
+price int DEFAULT 0,
+status varchar(10) ,
+crated_at datetime,
+check (status in ('valid', 'expired'))) ;
+
+
+/*CREATE TABLE order_products */
+create table order_products(
+order_id int ,
+product_id int,
+quantity int DEFAULT 0,
+FOREIGN  KEY (order_id) REFERENCES orders(id),
+FOREIGN  KEY (product_id) REFERENCES products(id));
+
+
+
+/*Add new row to the countries table*/
+use store;
+INSERT INTO countries
+VALUES (1,"hoor","spain");
+
+
+/*Add new row to the users table*/
+use store;
+insert into users
+values(10,"mohammed","m1@gmail.com","m","8-7-1987",CURRENT_TIMESTAMP,1);
+
+/*Add new row to the order table*/
+use store;
+insert into orders
+values(5,10, "start",CURRENT_TIMESTAMP);
+
+
+/*Add new row to the products table*/
+use store;
+insert into products
+values(51,"osama", 100,"expired",CURRENT_TIMESTAMP);
+
+/*Add new row to the order_products table*/
+use store;
+insert into order_products
+values(5,51, 9);
+
+
+/*Update row from countries table*/
+UPDATE countries
+SET name = "noura"
+WHERE cod=1;
+
+
+/*Delete row from products table*/
+DELETE FROM products WHERE id=51;
+
+
+
+
+
+
+
+
+
+
+
