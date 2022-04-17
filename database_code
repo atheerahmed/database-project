@@ -85,7 +85,7 @@ values(5,51, 9);
 
 /*Update row from countries table*/
 UPDATE countries
-SET name = "noura"
+SET countries= "paris", name = "noura"
 WHERE cod=1;
 
 
